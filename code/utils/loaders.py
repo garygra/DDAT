@@ -17,6 +17,9 @@ from GO2.GO2_env import Go2Env
 
 from utils.projectors import Reference_Projector, Admissible_Projector, SA_Projector, Action_Projector
 
+from Pendulum.pendulum import Pendulum
+from Ackermann.ackermann import Ackermann
+
 
 #%% 
 
@@ -37,7 +40,7 @@ def make_env(env_name: str, modality: str):
     H : horizon, default length of each trajectories in the environment
     N_trajs : default number of trajectories in the environment's datasets
     """
-    assert env_name  in ["Hopper", "Walker", "HalfCheetah", "Quadcopter", "GO1", "GO2"], "Environment name not recognized"
+    assert env_name  in ["Hopper", "Walker", "HalfCheetah", "Quadcopter", "GO1", "GO2", "Pendulum", "Ackermann"], "Environment name not recognized"
     
     if env_name == "Hopper":
         env = HopperEnv()
@@ -76,6 +79,20 @@ def make_env(env_name: str, modality: str):
         H = 500
         if modality == "A": # less depth to compensate for the extra parameters of the conditioning
             model_size = {"d_model": 256, "n_heads": 4, "depth": 5}
+
+    elif env_name == "Pendulum":
+        env = Pendulum()
+        model_size = {"d_model": 256, "n_heads": 4, "depth": 4}
+        H = 100
+        if modality == "A": # less depth to compensate for the extra parameters of the conditioning
+            model_size = {"d_model": 256, "n_heads": 4, "depth": 3}
+
+    elif env_name == "Ackermann":
+        env = Ackermann()
+        model_size = {"d_model": 256, "n_heads": 4, "depth": 4}
+        H = 100
+        if modality == "A": # less depth to compensate for the extra parameters of the conditioning
+            model_size = {"d_model": 256, "n_heads": 4, "depth": 3}
 
     N_trajs = 1000
 
