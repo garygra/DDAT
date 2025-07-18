@@ -16,6 +16,15 @@ We propose to address the root cause of the problem by forcing our diffusion mod
 
 ![infeasible trajectories diverge](docs/videos/GO2_smaller_gif.gif)
 
+## Getting Started
+
+There's an annoying bug that you need to deal with before running `evaluate.py`.
+
+1. Find the path to the conda env you are using `conda env list`.
+2. Go to `<CONDA ENV LOCATION>/lib/python3.12/site-packages/gymnasium/envs/mujoco/hopper_v4.py`
+3. Edit line 209 to be `1`.
+4. Go to `<CONDA ENV LOCATION>/lib/python3.12/site-packages/gymnasium/envs/mujoco/assets/hopper.xml`
+5. Edit line 13 to have integrator `Euler` with a timestep of `0.008`.
 
 ## Theory
 
